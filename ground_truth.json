@@ -1,0 +1,10 @@
+{
+  "discount_off_by_one": {"file": "app/pricing.py", "function": "apply_discount", "category": "logic error"},
+  "tax_rounds_down": {"file": "app/pricing.py", "function": "add_tax", "category": "rounding error"},
+  "remove_missing_item_keyerror": {"file": "app/cart.py", "function": "remove", "category": "unhandled exception"},
+  "empty_cart_returns_none": {"file": "app/cart.py", "function": "subtotal", "category": "null value"},
+  "reserve_last_item_fails": {"file": "app/inventory.py", "function": "reserve", "category": "boundary condition"},
+  "email_regex_too_strict": {"file": "app/validators.py", "function": "is_valid_email", "category": "validation too strict"},
+  "supplier_timeout": {"file": "app/inventory.py", "function": "fetch_supplier_price", "category": "timeout"},
+  "flaky_network_call": {"file": "app/inventory.py", "function": "fetch_supplier_price", "category": "flaky test"}
+}

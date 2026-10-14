@@ -1,0 +1,36 @@
+name: inject failures
+on:
+  workflow_dispatch:
+jobs:
+  inject:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        bug:
+          - none
+          - discount_off_by_one
+          - tax_rounds_down
+          - remove_missing_item_keyerror
+          - empty_cart_returns_none
+          - reserve_last_item_fails
+          - email_regex_too_strict
+          - supplier_timeout
+          - flaky_network_call
+    env:
+      INJECT_BUG: ${{ matrix.bug }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: run tests
+        continue-on-error: true
+        run: pytest --junitxml=reports/junit-${{ matrix.bug }}.xml
+      - name: upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-${{ matrix.bug }}
+          path: reports/
